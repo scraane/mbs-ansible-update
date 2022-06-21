@@ -14,3 +14,13 @@
       apt:
         name: "*"
         state: latest
+
+    - name: finalize | reboot | check
+      shell: sleep 10 && /sbin/shutdown -r now 'Rebooting box to update system libs/kernel as needed'
+      args:
+        removes: /var/run/reboot-required
+      async: 300
+      poll: 0
+      ignore_errors: true
+      register: rebooting
+      when: reboot_required_file.stat.exists
