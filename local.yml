@@ -1,0 +1,16 @@
+---
+
+- name: update OS
+  connection: ansible.netcommon.network_cli
+  gather_facts: false
+  hosts: localhost
+  tasks:
+
+    - name: base | update | update cache
+      apt:
+        update_cache: yes
+        
+    - name: base | update | update packages
+      apt:
+        name: "*"
+        state: latest
